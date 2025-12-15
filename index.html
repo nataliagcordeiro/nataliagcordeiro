@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natália Galindo - Administração & Logística | Portfólio</title>
+    
+
+<script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #3f3e3e; /* Marrom escuro para texto, mantendo boa legibilidade */
+            
+            /* Background focado em Logística/Corporativo (Tons Terrosos Vibrantes/Verde Oliva Intenso) */
+            /* Paleta: SUNSET (#EAC891), OLIVE (#8A8635), CHILE ROJO (#AE431E), TERRACOTA (#D06224) */
+            background-image: url('https://placehold.co/1920x1080/EAC891/AE431E?text=Logística+%26+Administração'); 
+            background-size: cover;
+            background-attachment: fixed; 
+            background-position: center;
+            background-color: #EAC891; /* SUNSET - Cor de fundo principal */
+        }
+
+        @media (max-width: 640px) {
+            body {
+                background-size: 150% auto; 
+            }
+        }
+
+        /* Cor de Fundo dos Cartões e Barras (Branco Suave/Creme Quente) */
+        .bg-soft-white {
+            background-color: #FFFBEB; /* Um creme muito claro, quase branco, que harmoniza com o Sunset */
+        }
+
+        /* Paleta de Cores Aplicada */
+        .text-dark { color: #3f3e3e; } 
+        .text-accent { color: #8A8635; } /* OLIVE - Cor profissional/técnica principal (Logística) */
+        .bg-highlight { background-color: #AE431E; } /* CHILE ROJO - Destaque de navegação e bordas */
+        .border-highlight { border-color: #AE431E; } /* CHILE ROJO */
+        .hover\:bg-highlight:hover { background-color: #8A8635; } /* OLIVE para hover na navegação */
+        
+        /* Botões de ação */
+        .btn-action { background-color: #D06224; color: white; } /* TERRACOTA - Cor de Ação Primária (WhatsApp) */
+        .btn-action:hover { background-color: #AE431E; } /* CHILE ROJO para hover */
+
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease-in-out;
+            background-color: #FFFBEB; /* Aplicando o branco suave */
+            color: #4f4f4f; /* Texto dentro dos cartões, um cinza mais quente */
+        }
+        .card-shadow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            transition: transform 0.4s ease-in-out;
+            transform: translateX(-100%); 
+            width: 90%; 
+            max-width: 320px; 
+            z-index: 50; 
+            left: 0; 
+            background-color: #FFFBEB; /* Aplicando o branco suave à sidebar */
+        }
+        .sidebar.open {
+            transform: translateX(0); 
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative; 
+            z-index: 20;
+        }
+        
+        .bg-overlay {
+            background-color: rgba(234, 200, 145, 0.95); /* SUNSET com 95% de opacidade */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10; 
+        }
+
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-light': '#EAC891', /* SUNSET */
+                        'soft-white': '#FFFBEB', /* Creme suave para cartões */
+                        'dark-text': '#3f3e3e', /* Marrom escuro vibrante */
+                        'highlight': '#AE431E', /* CHILE ROJO - Destaque Principal */
+                        'accent': '#8A8635', /* OLIVE - Acento Profissional */
+                        'action': '#D06224' /* TERRACOTA - Ação Primária */
+                    }
+                }
+            }
+        }
+
+        function changeTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            const selectedContent = document.getElementById(tabName);
+            if (selectedContent) {
+                selectedContent.classList.remove('hidden');
+            }
+
+            document.querySelectorAll('.tab-button').forEach(button => {
+                // Ajustando a cor do botão inativo para o novo 'soft-white'
+                button.classList.remove('bg-highlight', 'text-white', 'border-highlight');
+                button.classList.add('bg-soft-white', 'border-gray-300', 'text-dark', 'hover:text-action');
+            });
+
+            const selectedButton = document.getElementById(`btn-${tabName}`);
+            if (selectedButton) {
+                selectedButton.classList.add('bg-highlight', 'border-highlight', 'text-white');
+                selectedButton.classList.remove('bg-soft-white', 'border-gray-300', 'text-dark', 'hover:text-action');
+            }
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+            toggleSidebar();
+        }
+        
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-menu');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            sidebar.classList.toggle('open');
+            backdrop.classList.toggle('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializa a primeira aba
+            changeTab('admin-cursos');
+        });
+    </script>
+</head>
+<body class="text-dark min-h-screen">
+    
+    <div class="bg-overlay"></div>
+
+    
+
+<!-- HEADER: Fundo branco suave com opacidade para harmonizar -->
+<header class="sticky top-0 bg-soft-white/95 border-b border-gray-200 p-4 flex justify-between items-center z-40 shadow-sm backdrop-blur-sm">
+        <button id="hamburger-button" onclick="toggleSidebar()" class="focus:outline-none p-1 rounded-full hover:bg-gray-100 transition duration-150">
+            
+
+<svg class="w-8 h-8 text-highlight" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <!-- Nome principal em CHILE ROJO para destaque -->
+        <h1 class="text-xl font-bold text-highlight">Natália G. Cordeiro</h1>
+    </header>
+
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black opacity-40 hidden z-40" onclick="toggleSidebar()"></div>
+
+    
+
+<!-- ASIDE: Fundo branco suave aplicado via CSS Style tag -->
+<aside id="sidebar-menu" class="sidebar fixed top-0 h-full z-50 p-6 shadow-2xl border-r border-gray-200">
+        <div class="flex flex-col h-full">
+            <button onclick="toggleSidebar()" class="absolute top-4 right-4 text-dark focus:outline-none p-1 rounded-full hover:bg-gray-100 transition duration-150">
+                
+
+<svg class="w-8 h-8 text-highlight" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <div class="mt-4 pb-6 border-b border-gray-200">
+                <h2 class="text-xl font-extrabold tracking-tight text-dark">
+                    Navegação
+                </h2>
+                <h3 class="text-sm text-accent font-light">
+                    Administração & Logística
+                </h3>
+            </div>
+
+            <nav class="mt-6 space-y-3 font-semibold text-lg text-dark flex-grow">
+                <!-- Links de navegação com hover em CHILE ROJO -->
+                <button onclick="scrollToSection('sobre')" class="block nav-link text-left w-full p-2 rounded hover:bg-highlight hover:text-white transition duration-200">01. Objetivo</button>
+                <button onclick="scrollToSection('habilidades')" class="block nav-link text-left w-full p-2 rounded hover:bg-highlight hover:text-white transition duration-200">02. Habilidades</button>
+                <button onclick="scrollToSection('experiencia')" class="block nav-link text-left w-full p-2 rounded hover:bg-highlight hover:text-white transition duration-200">03. Experiência</button>
+                <button onclick="scrollToSection('formacao')" class="block nav-link text-left w-full p-2 rounded hover:bg-highlight hover:text-white transition duration-200">04. Cursos</button>
+            </nav>
+            
+            <div id="contato" class="space-y-4 text-sm pt-6 border-t border-gray-200">
+                <p class="font-bold text-dark text-base">Contato</p>
+                
+                <!-- Botão WhatsApp em TERRACOTA (Ação Primária) --><a href="https://wa.me/5581981881085?text=Ol%C3%A1%2C%20Nat%C3%A1lia%21%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20a%20vaga%20de%20%5BInserir%20Vaga%5D." 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="flex flex-col items-center justify-center p-3 rounded-lg btn-action text-white font-bold shadow-md transition duration-200">
+                    <div class="flex items-center mb-1">
+                        <!-- Ícone de Chat/Mensagem para representar o WhatsApp --><svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 14h12V6H6v8z"/></svg>
+                        Conversar no WhatsApp
+                    </div>
+                </a>
+                
+                <!-- Botão Email em OLIVE (Acento Secundário) --><a href="mailto:nataliagcordeiro@gmail.com" class="flex flex-col items-center justify-center p-3 rounded-lg bg-accent text-white font-bold shadow-md hover:bg-highlight transition duration-200">
+                    <div class="flex items-center mb-1">
+                        
+
+<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+                        Enviar Email
+                    </div>
+                </a>
+
+                <div class="p-3 bg-gray-100 rounded-lg text-center border border-gray-200">
+                    <p class="font-bold text-gray-700">Localização</p>
+                    <p class="text-gray-600">Jardim Jordão, Recife</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-content p-6">
+
+        <main class="space-y-12">
+
+            
+
+<!-- Cartão de Apresentação: Fundo branco suave aplicado via card-shadow -->
+<section id="apresentacao" class="pt-8">
+                <div class="rounded-xl card-shadow mb-8 border-t-4 border-action">
+                    <div class="p-8 text-center">
+                        <h1 class="text-4xl font-extrabold tracking-tight text-dark mb-2 uppercase">
+                            Natália Galindo Cordeiro
+                        </h1>
+                        <h2 class="text-2xl text-accent font-medium">
+                            Técnica em Administração
+                        </h2>
+                        <p class="mt-4 text-gray-600 max-w-lg mx-auto font-medium">
+                            Objetivo: Atuar nas áreas Financeira e Administrativa.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            
+
+<!-- Cartão de Perfil: Fundo branco suave aplicado via card-shadow -->
+<section id="sobre">
+                <div class="flex items-center mb-4 border-b-2 border-gray-200 pb-2">
+                    <!-- Número do item em TERRACOTA -->
+                    <span class="text-3xl font-bold text-action mr-3">01.</span>
+                    <h3 class="text-2xl font-bold text-dark">Objetivo & Perfil</h3>
+                </div>
+                <!-- Borda em TERRACOTA -->
+                <div class="p-6 rounded-xl card-shadow text-gray-700 border-l-4 border-action">
+                    <p class="text-lg leading-relaxed">
+                        Tenho 24 anos e sou Técnica em Administração (2023). Busco uma oportunidade para atuar nas áreas <strong>Financeira e Administrativa</strong>, onde possa aplicar minha formação, minhas noções de Escrita Fiscal e Contabilidade, e minha experiência em controle de caixa e gestão de processos.
+                    </p>
+                    <p class="text-lg leading-relaxed mt-4">
+                        Possuo uma trajetória sólida de crescimento profissional, tendo evoluído de auxiliar operacional para cargos de supervisão. Tenho experiência prática em controle de valores, atendimento ao cliente, e coordenação de equipes, sempre com foco em organização e eficiência.
+                    </p>
+                </div>
+            </section>
+
+            
+
+<section id="habilidades">
+                <div class="flex items-center mb-6 border-b-2 border-gray-200 pb-2">
+                    <!-- Número do item em TERRACOTA -->
+                    <span class="text-3xl font-bold text-action mr-3">02.</span>
+                    <h3 class="text-2xl font-bold text-dark">Habilidades</h3>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+
+                    <!-- Cartões de Habilidades: Fundo branco suave aplicado via card-shadow -->
+<div class="p-6 rounded-xl card-shadow border-t-4 border-action">
+                        <h4 class="text-xl font-semibold text-accent mb-4">Administrativo & Operacional</h4>
+                        <ul class="space-y-3 text-gray-700 text-sm">
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Escrita Fiscal e Noções de Contabilidade</li>
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Abertura e Fechamento de Caixa</li>
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Conferência de Cédulas</li>
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Cadastro de Produtos</li>
+                        </ul>
+                    </div>
+
+                    <!-- Cartões de Habilidades: Fundo branco suave aplicado via card-shadow -->
+<div class="p-6 rounded-xl card-shadow border-t-4 border-action">
+                        <h4 class="text-xl font-semibold text-accent mb-4">Perfil Profissional</h4>
+                        <ul class="space-y-3 text-gray-700 text-sm">
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Fácil Adaptação e Flexibilidade</li>
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Proatividade e Dinamismo</li>
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Resolução de Problemas</li>
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Ótimo Relacionamento Interpessoal</li>
+                        </ul>
+                    </div>
+
+                    <!-- Cartões de Habilidades: Fundo branco suave aplicado via card-shadow -->
+<div class="p-6 rounded-xl card-shadow border-t-4 border-action">
+                        <h4 class="text-xl font-semibold text-accent mb-4">Atendimento & Gestão</h4>
+                        <ul class="space-y-3 text-gray-700 text-sm">
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Supervisão de Operações</li>
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Gestão de Pessoas (Curso e Prática)</li>
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Atendimento (Presencial e Telefone)</li>
+                            <li class="flex items-center"><span class="text-action mr-2">✓</span> Recepção e Telemarketing</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            
+
+<section id="experiencia">
+                <div class="flex items-center mb-6 border-b-2 border-gray-200 pb-2">
+                    <!-- Número do item em TERRACOTA -->
+                    <span class="text-3xl font-bold text-action mr-3">03.</span>
+                    <h3 class="text-2xl font-bold text-dark">Experiência Profissional</h3>
+                </div>
+
+                <div class="space-y-6">
+                    
+                    <!-- Analista Financeira - Grupo PJ (Atual) -->
+<div class="p-6 rounded-xl card-shadow border-l-4 border-action bg-soft-white relative overflow-hidden">
+                        <!-- Destaque "Posição Atual" em TERRACOTA (Action) -->
+                        <div class="absolute top-0 right-0 bg-action text-white text-xs px-2 py-1 rounded-bl-lg">Posição Atual</div>
+                        <h3 class="text-xl font-bold text-dark mb-4 border-b pb-2">Grupo PJ (01/05/2025 - Atual)</h3>
+                        
+                        <div>
+                            <div class="flex justify-between items-baseline mb-1 flex-wrap">
+                                <h4 class="text-lg font-bold text-dark">ANALISTA FINANCEIRA</h4>
+                                <p class="text-sm font-medium text-gray-500">01/05/2025 – Atual</p>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 text-sm space-y-1 ml-2">
+                                <li>Responsável pela gestão e análise de fluxo de caixa, controle orçamentário e planejamento financeiro.</li>
+                                <li>Condução de processos de cobrança e recuperação de dívidas de alta complexidade.</li>
+                                <li>**Destaque:** Atuação em cobranças de pendências de pagamento de mais de 5 meses, resultando no resgate de um valor superior a R$ 1 milhão de reais.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Empreendedora Autônoma (Lanche dos Simpsons) -->
+<div class="p-6 rounded-xl card-shadow border-l-4 border-highlight bg-soft-white relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-highlight text-white text-xs px-2 py-1 rounded-bl-lg">Empreendedorismo</div>
+                        <h3 class="text-xl font-bold text-dark mb-4 border-b pb-2">Lanche dos Simpsons (Autônoma)</h3>
+                        
+                        <div>
+                            <div class="flex justify-between items-baseline mb-1 flex-wrap">
+                                <h4 class="text-lg font-bold text-dark">GESTORA E EMPREENDEDORA AUTÔNOMA</h4>
+                                <p class="text-sm font-medium text-gray-500">02/2024 – 04/2025</p>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 text-sm space-y-1 ml-2">
+                                <li>Gestão completa do negócio de alimentação, incluindo compra de insumos, precificação, controle de estoque e fluxo de caixa.</li>
+                                <li>Responsável pela estratégia de vendas e marketing, resultando em uma base de clientes fidelizados.</li>
+                                <li>Atuação como fornecedora (B2B), estabelecendo parcerias de revenda com terceiros e gerenciando a logística de produção e distribuição.</li>
+                                <li>Demonstração de iniciativa, autonomia e capacidade de gestão de múltiplas funções simultaneamente.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Cartão de Experiência: Fundo branco suave aplicado via card-shadow, ajustado o bg-white para bg-soft-white -->
+<div class="p-6 rounded-xl card-shadow border-l-4 border-accent bg-soft-white relative overflow-hidden">
+                        <!-- Destaque "Crescimento Interno" em OLIVE -->
+                        <div class="absolute top-0 right-0 bg-accent text-white text-xs px-2 py-1 rounded-bl-lg">Crescimento Interno</div>
+                        <h3 class="text-xl font-bold text-accent mb-4 border-b pb-2">Lupi Pizzeria e Restaurante (2020 - 2023)</h3>
+                        
+                        
+
+<div class="mb-5">
+                            <div class="flex justify-between items-baseline mb-1 flex-wrap">
+                                <h4 class="text-lg font-bold text-dark">SUPERVISORA</h4>
+                                <p class="text-sm font-medium text-gray-500">20/09/2022 - 31/07/2023</p>
+                            </div>
+                            <p class="text-gray-600 text-sm ml-2 mb-2"><em>*Atuei também como Barmaid neste período.</em></p>
+                            <ul class="list-disc list-inside text-gray-600 text-sm space-y-1 ml-2">
+                                <li>Supervisão completa das operações de Delivery.</li>
+                                <li>Garantia da qualidade do atendimento e experiência do cliente.</li>
+                                <li>Gestão de equipe e processos operacionais.</li>
+                            </ul>
+                        </div>
+
+                        
+
+<div class="mb-5">
+                            <div class="flex justify-between items-baseline mb-1 flex-wrap">
+                                <h4 class="text-lg font-bold text-dark">OPERADORA DE CAIXA</h4>
+                                <p class="text-sm font-medium text-gray-500">21/07/2020 - 20/09/2022</p>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 text-sm space-y-1 ml-2">
+                                <li>Abertura e fechamento de caixa e conferência de cédulas.</li>
+                                <li>Cadastro de produtos no sistema e atendimento (Delivery e Balcão).</li>
+                            </ul>
+                        </div>
+
+                        
+
+<div>
+                            <div class="flex justify-between items-baseline mb-1 flex-wrap">
+                                <h4 class="text-lg font-bold text-dark">AUXILIAR DE SERVIÇOS GERAIS</h4>
+                                <p class="text-sm font-medium text-gray-500">15/01/2020 - 21/07/2020</p>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-600 text-sm space-y-1 ml-2">
+                                <li>Limpeza e organização da cozinha, estoque e áreas comuns.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Cartão de Experiência: Fundo branco suave aplicado via card-shadow -->
+<div class="p-6 rounded-xl card-shadow border-l-4 border-gray-300">
+                        <div class="flex justify-between items-baseline mb-2 flex-wrap">
+                            <h4 class="text-xl font-bold text-dark">OPERADORA DE CAIXA / AUX. GARÇOM</h4>
+                            <p class="text-sm font-medium text-gray-500">10/2018 - 01/2020</p>
+                        </div>
+                        <p class="text-lg text-accent font-semibold mb-2">Pizzeria Vesuvio</p>
+                        <p class="text-gray-600 text-sm">Retirada de pedidos, limpeza de mesas, atendimento ao cliente, abertura e fechamento de caixa.</p>
+                    </div>
+
+                    <!-- Cartão de Experiência: Fundo branco suave aplicado via card-shadow -->
+<div class="p-6 rounded-xl card-shadow border-l-4 border-gray-300">
+                        <div class="flex justify-between items-baseline mb-2 flex-wrap">
+                            <h4 class="text-xl font-bold text-dark">OPERADORA DE CAIXA / ATENDENTE</h4>
+                            <p class="text-sm font-medium text-gray-500">07/2018 - 10/2018</p>
+                        </div>
+                        <p class="text-lg text-accent font-semibold mb-2">Padaria Panduca</p>
+                        <p class="text-gray-600 text-sm">Atendimento ao público, conferência de pedidos delivery e cadastro de produtos.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            
+
+<section id="formacao" class="pb-8">
+                <div class="flex items-center mb-6 border-b-2 border-gray-200 pb-2">
+                    <!-- Número do item em TERRACOTA -->
+                    <span class="text-3xl font-bold text-action mr-3">04.</span>
+                    <h3 class="text-2xl font-bold text-dark">Formação Acadêmica & Cursos</h3>
+                </div>
+
+                
+
+<!-- Fundo branco suave aplicado (bg-white -> bg-soft-white) -->
+<div class="mb-6 p-4 bg-soft-white border border-gray-200 rounded-lg shadow-sm flex items-center justify-between">
+                    <div>
+                        <h4 class="text-xl font-bold text-dark">TÉCNICO EM ADMINISTRAÇÃO</h4>
+                        <p class="text-accent">Escola Técnica Particular</p>
+                    </div>
+                    <!-- Destaque do ano de conclusão em OLIVE -->
+                    <span class="bg-accent text-white px-3 py-1 rounded text-sm">Conclusão: 2023</span>
+                </div>
+
+                <!-- Botões de aba em CHILE ROJO quando ativos, TERRACOTA no hover. Fundo inativo em branco suave -->
+<div class="flex flex-wrap gap-2 mb-6">
+                    <button id="btn-admin-cursos" onclick="changeTab('admin-cursos')" class="tab-button px-5 py-2 rounded-lg border font-semibold transition duration-300 shadow-sm">
+                        Administração & Gestão
+                    </button>
+                    <button id="btn-operacional-cursos" onclick="changeTab('operacional-cursos')" class="tab-button px-5 py-2 rounded-lg border font-semibold transition duration-300 shadow-sm">
+                        Logística & Operacional
+                    </button>
+                    <button id="btn-complementares-cursos" onclick="changeTab('complementares-cursos')" class="tab-button px-5 py-2 rounded-lg border font-semibold transition duration-300 shadow-sm">
+                        Habilidades Complementares
+                    </button>
+                    <button id="btn-gastronomia-cursos" onclick="changeTab('gastronomia-cursos')" class="tab-button px-5 py-2 rounded-lg border font-semibold transition duration-300 shadow-sm">
+                        Gastronomia
+                    </button>
+                </div>
+
+                
+                <!-- Cartões de Curso: Fundo branco suave aplicado (bg-white -> bg-soft-white) -->
+<div id="admin-cursos" class="tab-content space-y-4">
+                    <p class="italic text-gray-500 text-sm mb-2">Cursos de base que dão suporte para funções administrativas, fiscais e de gestão de equipes.</p>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-action shadow-sm">
+                        <p class="font-bold text-dark">ESCRITA FISCAL</p>
+                        <p class="text-xs text-gray-500">Escola Educação Cursos (60h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Conceitos fundamentais de impostos e documentos fiscais, essenciais para o controle de entrada e saída de mercadorias.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-action shadow-sm">
+                        <p class="font-bold text-dark">ADMINISTRAÇÃO, RH E CONTABILIDADE (Noções)</p>
+                        <p class="text-xs text-gray-500">Projeto Social Qualifica Brasil (10h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Visão geral sobre gestão empresarial, recursos humanos e controle financeiro básico.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-action shadow-sm">
+                        <p class="font-bold text-dark">GESTÃO DE PESSOAS</p>
+                        <p class="text-xs text-gray-500">Escola Educação Cursos (30h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Técnicas de liderança, motivação de equipes e comunicação eficaz no ambiente de trabalho.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-action shadow-sm">
+                        <p class="font-bold text-dark">BOLSA DE VALORES</p>
+                        <p class="text-xs text-gray-500">Nossa Escola / ABED (40h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Conhecimento sobre o mercado financeiro e noções de investimentos, demonstrando raciocínio analítico.</p>
+                    </div>
+                </div>
+
+                
+                <!-- Cartões de Curso: Fundo branco suave aplicado (bg-white -> bg-soft-white) -->
+<div id="operacional-cursos" class="tab-content hidden space-y-4">
+                    <p class="italic text-gray-500 text-sm mb-2">Treinamentos focados em rotinas de logística (Conferência), caixa e atendimento ao cliente.</p>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-accent shadow-sm">
+                        <p class="font-bold text-dark">OPERADOR DE CAIXA</p>
+                        <p class="text-xs text-gray-500">Prime Cursos LTDA / ABED</p>
+                        <p class="text-xs text-gray-400 mt-1">Foco em rotinas de conferência de numerário, controle de fluxo de caixa e emissão de comprovantes fiscais.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-accent shadow-sm">
+                        <p class="font-bold text-dark">RECEPCIONISTA</p>
+                        <p class="text-xs text-gray-500">Escola Educação Cursos (40h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Habilidades de comunicação, organização de informações e gestão de atendimento presencial.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-accent shadow-sm">
+                        <p class="font-bold text-dark">TELEMARKETING E CALL CENTER</p>
+                        <p class="text-xs text-gray-500">Escola Educação Cursos (40h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Técnicas de comunicação por telefone, resolução de problemas e foco na satisfação do cliente.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-accent shadow-sm">
+                        <p class="font-bold text-dark">TELEFONISTA</p>
+                        <p class="text-xs text-gray-500">Escola Educação Cursos (40h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Proferimento de chamadas, uso de ramais e etiqueta telefônica profissional.</p>
+                    </div>
+                </div>
+
+                
+                <!-- Cartões de Curso: Fundo branco suave aplicado (bg-white -> bg-soft-white) -->
+<div id="complementares-cursos" class="tab-content hidden space-y-4">
+                    <p class="italic text-gray-500 text-sm mb-2">Habilidades adicionais que enriquecem o perfil e demonstram versatilidade.</p>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-gray-400 shadow-sm">
+                        <p class="font-bold text-dark">EDUCAÇÃO FINANCEIRA</p>
+                        <p class="text-xs text-gray-500">Udemy Academy (9h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Capacidade de planejamento orçamentário, controle de gastos e noções de investimentos para gestão de recursos pessoais e empresariais.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-gray-400 shadow-sm">
+                        <p class="font-bold text-dark">TESOURO DIRETO - DO BÁSICO AO AVANÇADO</p>
+                        <p class="text-xs text-gray-500">Udemy Academy (3h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Conceitos sobre planejamento financeiro pessoal e a modalidade de investimento Tesouro Direto.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-gray-400 shadow-sm">
+                        <p class="font-bold text-dark">INGLÊS EXTREMO - DO ZERO À FLUÊNCIA</p>
+                        <p class="text-xs text-gray-500">Udemy Academy (17,5h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Desenvolvimento da comunicação básica no idioma inglês, útil para interações e documentação internacional.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-gray-400 shadow-sm">
+                        <p class="font-bold text-dark">ITALIANO PARA BRASILEIROS</p>
+                        <p class="text-xs text-gray-500">Udemy Academy (6h)</p>
+                        <p class="text-xs text-gray-400 mt-1">Noções básicas de vocabulário e conversação em italiano.</p>
+                    </div>
+                </div>
+
+                
+                <!-- Cartões de Curso: Fundo branco suave aplicado (bg-white -> bg-soft-white) -->
+<div id="gastronomia-cursos" class="tab-content hidden space-y-4">
+                    <p class="italic text-gray-500 text-sm mb-2">Cursos complementares que demonstram versatilidade e experiência prática em ambientes de alto fluxo, além de habilidades de serviço.</p>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-gray-300 shadow-sm">
+                        <p class="font-bold text-dark">O SERVIÇO PERFEITO COM COQUETÉIS SIMPLES</p>
+                        <p class="text-xs text-gray-500">Diageo Bar Academy (Módulos de pour, desperdício, destilados, etc.)</p>
+                        <p class="text-xs text-gray-400 mt-1">Foco em técnicas de serviço, atendimento eficiente e controle de desperdício (essencial para logística de bar/restaurante).</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-soft-white border-l-4 border-gray-300 shadow-sm">
+                        <p class="font-bold text-dark">HIGIENE E MANIPULAÇÃO DE ALIMENTOS</p>
+                        <p class="text-xs text-gray-500">Diageo Bar Academy</p>
+                        <p class="text-xs text-gray-400 mt-1">Conceitos de segurança alimentar e boas práticas de trabalho.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+</html>
